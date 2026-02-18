@@ -6,13 +6,28 @@
   <title>Abrindo Canva…</title>
 </head>
 <body>
-  <p>Abrindo Canva…</p>
+<script>
+  (function () {
+    // tenta algumas variações SEM criar histórico extra (replace)
+    const candidates = ["canva:", "canva://", "canvadesktop:", "canvadesktop://"];
+    let i = 0;
 
-  <script>
-    // Permite passar um link específico: ?url=https%3A%2F%2Fwww.canva.com%2Fdesign%2F...
-    const params = new URLSearchParams(location.search);
-    const url = params.get("url") || "https://www.canva.com/";
-    window.location.href = url;
-  </script>
+    function tryNext() {
+      if (i >= candidates.length) return;
+      try { location.replace(candidates[i++]); } catch (e) {}
+      setTimeout(tryNext, 250);
+    }
+
+    tryNext();
+
+    // tenta fechar a aba
+    const started = Date.now();
+    const timer = setInterval(() => {
+      try { window.open("", "_self"); } catch (e) {}
+      try { window.close(); } catch (e) {}
+      if (Date.now() - started > 2500) clearInterval(timer);
+    }, 100);
+  })();
+</script>
 </body>
 </html>
