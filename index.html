@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abrindo Canva…</title>
+</head>
+<body>
+  <p>Abrindo Canva…</p>
+
+  <script>
+    // Permite passar um link específico: ?url=https%3A%2F%2Fwww.canva.com%2Fdesign%2F...
+    const params = new URLSearchParams(location.search);
+    const url = params.get("url") || "https://www.canva.com/";
+    window.location.href = url;
+  </script>
+</body>
+</html>
